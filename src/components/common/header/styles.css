@@ -12,9 +12,22 @@
   height: 40px;
 }
 
+.image-user-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.image-user-container > p {
+  font-weight: bold;
+  font-size: 18px;
+}
+
 .company-title {
   font-size: 16px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .header-search-container{
@@ -32,6 +45,10 @@
   width: 20vw;
 }
 
+.icon {
+  cursor: pointer;
+}
+
 .search-icon{
   width: 20px;
   height: 20px;
@@ -40,9 +57,13 @@
   border-radius: 0px 10px 10px 0px;
 }
 
+.profile-icon {
+  width: 25px;
+  height: 25px;
+}
 .cart-icon {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
 
 .header-right-container{

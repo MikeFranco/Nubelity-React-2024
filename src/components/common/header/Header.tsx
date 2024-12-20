@@ -1,17 +1,39 @@
 import MainLogo from '../../../assets/logos/main-logo.png';
 import CartIcon from '../../../assets/icons/cart.svg';
+import ProfileIcon from '../../../assets/icons/profile.svg';
 import SearchIcon from '../../../assets/icons/search.svg';
 import { COMPANY_NAME } from '../../../utils/constants';
 import './styles.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+//@ts-ignore TODO: fix this
+import CartPopUp from '../../header/CartPopUp';
+import { IUserData } from '../../../pages/profile/types';
+
+interface IHeaderState {
+  searchQuery: string;
+  loading: boolean;
+  cartPopUp: boolean;
+  userData: IUserData | null;
+}
 
 const Header = () => {
   const navigate = useNavigate();
-  const [myState, setMyState] = useState({
+  const [myState, setMyState] = useState<IHeaderState>({
     searchQuery: '',
     loading: false,
+    cartPopUp: false,
+    userData: null,
   });
+
+  useEffect(() => {
+    const userData = localStorage.getItem('userData');
+    console.log('%c⧭ userData header', 'color: #997326', userData);
+    const parsedUserData = JSON.parse(userData ?? '');
+    setMyState(prevState => ({ ...prevState, userData: parsedUserData }));
+  }, []);
+
+  const cartRef = useRef(null);
 
   useEffect(() => {
     console.log('%c⧭', 'color: #0088cc', 'se ejecuta en el use Effect');
@@ -57,13 +79,23 @@ const Header = () => {
     setMyState(prevState => ({ ...prevState, searchQuery: value }));
   };
 
+  const toggleCartPopUp = () => {
+    setMyState(prevState => ({
+      ...prevState,
+      cartPopUp: !prevState.cartPopUp,
+    }));
+  };
+
   return (
     <div className='header-container'>
-      <img
-        src={MainLogo}
-        alt='main logo'
-        className='main-logo'
-      />
+      <div className='image-user-container'>
+        <img
+          src={MainLogo}
+          alt='main logo'
+          className='main-logo'
+        />
+        <p>Hola ¡{myState.userData?.name}!</p>
+      </div>
       <div className='header-search-container'>
         <input
           value={myState.searchQuery}
@@ -75,16 +107,29 @@ const Header = () => {
         <img
           src={SearchIcon}
           alt='main logo'
-          className='search-icon'
+          className='search-icon icon'
         />
       </div>
       <div className='header-right-container'>
         <img
+          src={ProfileIcon}
+          alt='main logo'
+          className='profile-icon icon'
+          onClick={() => navigate('/profile')}
+        />
+        <img
           src={CartIcon}
           alt='main logo'
-          className='cart-icon'
+          className='cart-icon icon'
+          onClick={() => toggleCartPopUp()}
         />
-        <p className='company-title'>{COMPANY_NAME}</p>
+        {/* {myState.cartPopUp && <CartPopUp ref={cartRef} />} */}
+        <p
+          className='company-title'
+          onClick={() => navigate('/')}
+        >
+          {COMPANY_NAME}
+        </p>
       </div>
     </div>
   );

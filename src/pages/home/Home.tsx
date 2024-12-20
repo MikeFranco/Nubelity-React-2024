@@ -71,7 +71,6 @@ export const Home = () => {
     <>
       <Header />
       <div className='main-container'>
-        <h1>Hello from home</h1>
         <p className='category-title'>Featured Products</p>
         <div className='products-container'>
           {featuredProducts.map(product => (
