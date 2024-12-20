@@ -8,30 +8,23 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 //@ts-ignore TODO: fix this
 import CartPopUp from '../../header/CartPopUp';
-import { IUserData } from '../../../pages/profile/types';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/store';
 
 interface IHeaderState {
   searchQuery: string;
   loading: boolean;
   cartPopUp: boolean;
-  userData: IUserData | null;
 }
 
 const Header = () => {
+  const profileState = useSelector((state: RootState) => state.profile);
   const navigate = useNavigate();
   const [myState, setMyState] = useState<IHeaderState>({
     searchQuery: '',
     loading: false,
     cartPopUp: false,
-    userData: null,
   });
-
-  useEffect(() => {
-    const userData = localStorage.getItem('userData');
-    console.log('%c⧭ userData header', 'color: #997326', userData);
-    const parsedUserData = JSON.parse(userData ?? '');
-    setMyState(prevState => ({ ...prevState, userData: parsedUserData }));
-  }, []);
 
   const cartRef = useRef(null);
 
@@ -93,8 +86,9 @@ const Header = () => {
           src={MainLogo}
           alt='main logo'
           className='main-logo'
+          onClick={() => navigate('/')}
         />
-        <p>Hola ¡{myState.userData?.name}!</p>
+        <p>Hola ¡{profileState.userData.name}!</p>
       </div>
       <div className='header-search-container'>
         <input
@@ -115,7 +109,7 @@ const Header = () => {
           src={ProfileIcon}
           alt='main logo'
           className='profile-icon icon'
-          onClick={() => navigate('/profile')}
+          onClick={() => navigate('/settings/profile')}
         />
         <img
           src={CartIcon}

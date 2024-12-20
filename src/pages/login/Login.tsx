@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateUserData } from '../profile/profileSlice';
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -18,8 +21,7 @@ const Login = () => {
         email,
       };
       console.log('%c⧭ userData', 'color: #e57373', userData);
-      localStorage.setItem('email', email);
-      localStorage.setItem('userData', JSON.stringify(userData));
+      dispatch(updateUserData(userData));
       navigate('/');
     }, 1000);
   };

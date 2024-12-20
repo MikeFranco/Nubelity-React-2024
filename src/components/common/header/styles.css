@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 5px 10px;
-  background-color: #005247;
+  background-color: var(--accent-color);
   align-items: center;
 }
 
@@ -52,7 +52,7 @@
 .search-icon{
   width: 20px;
   height: 20px;
-  background-color: #986F49;
+  background-color: var(--secondary-color);
   padding: 8px;
   border-radius: 0px 10px 10px 0px;
 }

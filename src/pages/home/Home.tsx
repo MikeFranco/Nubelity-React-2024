@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../../components/common/header/Header';
 import ProductCard from '../../components/common/productCard/ProductCard';
 import './styles.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 interface IProduct {
   id: number;
@@ -15,6 +17,7 @@ interface IProduct {
 }
 
 export const Home = () => {
+  const profileState = useSelector((state: RootState) => state.profile);
   const featuredProducts: IProduct[] = [
     {
       id: 1,
@@ -67,6 +70,10 @@ export const Home = () => {
       productRate: 4.7,
     },
   ];
+
+  useEffect(() => {
+    console.log('%c⧭ profileState', 'color: #735656', profileState);
+  }, []);
   return (
     <>
       <Header />

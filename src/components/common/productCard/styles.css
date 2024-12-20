@@ -7,7 +7,7 @@
   font-weight: 500;
   text-decoration: underline;
   cursor: pointer;
-  color: #FFEACE;
+  color: var(--light-primary-color);
 }
 
 .product-image {
