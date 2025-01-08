@@ -16,6 +16,7 @@ const initialState: ProfileState = {
     id: '',
     name: '',
     lastName: '',
+    profileImage: '',
   },
 };
 

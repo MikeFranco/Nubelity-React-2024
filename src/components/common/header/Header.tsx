@@ -1,6 +1,7 @@
 import MainLogo from '../../../assets/logos/main-logo.png';
 import CartIcon from '../../../assets/icons/cart.svg';
 import ProfileIcon from '../../../assets/icons/profile.svg';
+import SettingsIcon from '../../../assets/icons/settings.svg';
 import SearchIcon from '../../../assets/icons/search.svg';
 import { COMPANY_NAME } from '../../../utils/constants';
 import './styles.css';
@@ -8,8 +9,9 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 //@ts-ignore TODO: fix this
 import CartPopUp from '../../header/CartPopUp';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
+import { updateUserData } from '../../../pages/profile/profileSlice';
 
 interface IHeaderState {
   searchQuery: string;
@@ -20,6 +22,7 @@ interface IHeaderState {
 const Header = () => {
   const profileState = useSelector((state: RootState) => state.profile);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [myState, setMyState] = useState<IHeaderState>({
     searchQuery: '',
     loading: false,
@@ -41,15 +44,26 @@ const Header = () => {
   }, [myState.searchQuery]);
 
   useEffect(() => {
-    console.log('%c⧭ myState.loading', 'color: #ffa640', myState.loading);
-    return () => {
-      console.log('%c⧭', 'color: #007300', 'adiós desde el loading');
-    };
-  }, [myState.loading]);
-
-  useEffect(() => {
-    console.log('%c⧭', 'color: #731d1d', 'adiós mundo cruel');
+    getUserData();
   }, []);
+
+  const getUserData = async () => {
+    try {
+      setMyState(prevState => ({ ...prevState, loading: true }));
+      const response = await fetch('https://pokeapi.co/api/v2/pokemon/ditto');
+      const data = await response.json();
+      const userProfileImage = data.sprites.front_shiny;
+      const userData = {
+        profileImage: userProfileImage,
+        name: data.name,
+        lastName: 'Sr. Dr. Prf.',
+        id: data.id,
+      };
+      dispatch(updateUserData(userData));
+    } catch (error) {
+      console.log('%c⧭', 'color: #994d75', error);
+    }
+  };
 
   const makeApiCall = async () => {
     try {
@@ -57,7 +71,7 @@ const Header = () => {
       setMyState(prevState => ({ ...prevState, loading: true }));
       console.log('%c⧭ el search query', 'color: #917399', myState.searchQuery);
       console.log('%c⧭', 'color: #733d00', 'make an api call');
-      const response = await fetch('https://swapi.dev/api/people/1');
+      const response = await fetch('https://pokeapi.co/api/v2/pokemon/ditto');
       const data = await response.json();
       console.log('%c⧭ la data de la swapi', 'color: #f200e2', data);
       navigate('/profile');
@@ -105,6 +119,12 @@ const Header = () => {
         />
       </div>
       <div className='header-right-container'>
+        <img
+          src={SettingsIcon}
+          alt='main logo'
+          className='profile-icon icon'
+          onClick={() => navigate('/settings')}
+        />
         <img
           src={ProfileIcon}
           alt='main logo'

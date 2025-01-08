@@ -12,7 +12,16 @@ export const Profile = () => {
     <>
       <Header />
       <div className='main-container'>
-        <h1>Hola {profileState.userData.name}, bienvenido a tu perfil</h1>
+        <div className='user-data-container'>
+          <img
+            src={profileState.userData.profileImage}
+            alt={profileState.userData.name}
+            height={100}
+            width={100}
+            className='user-image'
+          />
+          <h1>Hola {profileState.userData.name}, bienvenido a tu perfil</h1>
+        </div>
         <input
           type='text'
           value={profileState.userData.name}

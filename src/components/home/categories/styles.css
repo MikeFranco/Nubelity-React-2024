@@ -1,0 +1,15 @@
+.main-categories-container {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
+  text-align: center;
+  overflow-x: scroll;
+}
+
+.header-text {
+  margin: 0;
+}
+
+.category-image{
+  object-fit: contain;
+}

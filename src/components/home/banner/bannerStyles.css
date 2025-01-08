@@ -1,0 +1,9 @@
+.main-banners-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.banner-image{
+  object-fit: contain;
+}

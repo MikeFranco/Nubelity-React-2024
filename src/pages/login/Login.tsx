@@ -40,7 +40,15 @@ const Login = () => {
           value={password}
           onChange={event => setPassword(event.target.value)}
         />
-        <button onClick={() => onLogin()}>Login</button>
+        <button
+          onClick={() => onLogin()}
+          className={`${
+            !email || !password ? 'button-disabled' : 'button-enabled'
+          }`}
+          disabled={!email || !password}
+        >
+          Login
+        </button>
       </div>
     </div>
   );

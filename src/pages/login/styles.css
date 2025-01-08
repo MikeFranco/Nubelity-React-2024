@@ -29,16 +29,18 @@ button {
   padding: 10px;
   width: 50%;
   align-self: center;
-  background-color: (--accent-color);
+  background-color: var(--accent-color);
   color: var(--white-color);
   font-weight: bold;
   font-size: 18px;
 }
 
-.email-input {
-
+.button-disabled {
+  background-color: var(--disabled-color);
+  cursor: not-allowed;
 }
 
-.password-input{
-
+.button-enabled {
+  background-color: var(--accent-color);
+  cursor: pointer;
 }
