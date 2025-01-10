@@ -4,6 +4,7 @@ import { IUserData } from './types';
 
 export interface ProfileState {
   userData: IUserData;
+  unaCosa: string;
 }
 
 export interface IUpdateProfileField {
@@ -18,6 +19,7 @@ const initialState: ProfileState = {
     lastName: '',
     profileImage: '',
   },
+  unaCosa: '',
 };
 
 export const profileSlice = createSlice({
@@ -26,6 +28,7 @@ export const profileSlice = createSlice({
   reducers: {
     updateUserData: (state, action: PayloadAction<IUserData>) => {
       state.userData = action.payload;
+      console.log('%c⧭ action', 'color: #a2124b', action);
     },
     updateUserDataField: (
       state,

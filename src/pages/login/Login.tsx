@@ -1,30 +1,22 @@
 import React, { useState } from 'react';
+import { useUser } from '../../hooks/useUser';
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { updateUserData } from '../profile/profileSlice';
 
 const Login = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { login } = useUser();
 
-  const onLogin = () => {
-    console.log('%c⧭', 'color: #731d6d', 'login');
-    //fetch a API para login
-    setTimeout(() => {
-      const userData = {
-        id: 'asdasdas',
-        name: 'Mike',
-        lastName: 'Franco',
-        email,
-      };
-      console.log('%c⧭ userData', 'color: #e57373', userData);
-      dispatch(updateUserData(userData));
+  const onLogin = async () => {
+    const resultLogin = await login({ email, password });
+    if (resultLogin?.name) {
       navigate('/');
-    }, 1000);
+    }
+    console.log('%c⧭ resultLogin', 'color: #eeff00', resultLogin);
   };
+
   return (
     <div className='login-main-container'>
       <div className='login-container'>

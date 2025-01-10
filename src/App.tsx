@@ -3,6 +3,7 @@ import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
 import Login from './pages/login/Login';
 import Settings from './pages/settings/Settings';
+import Testing from './pages/testing/Testing';
 
 const App = () => {
   return (
@@ -42,6 +43,10 @@ const App = () => {
         <Route
           path='/'
           element={<Home />}
+        />
+        <Route
+          path='/testing'
+          element={<Testing />}
         />
       </Routes>
     </BrowserRouter>
