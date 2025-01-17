@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserData } from '../pages/profile/profileSlice';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../store/store';
+import { resetUserData, updateUserData } from '../store/profile/profileSlice';
 
 export interface ILoginProps {
   email: string;
@@ -28,6 +28,7 @@ export const useUser = () => {
         name: data.name,
         lastName: 'Sr. Dr. Prf.',
         id: data.id,
+        email: `${data.name}@undominio.com`,
       };
       localStorage.setItem('token', 'un token desde la PokeApi');
       dispatch(updateUserData(userData));
@@ -38,14 +39,7 @@ export const useUser = () => {
   };
 
   const logout = () => {
-    dispatch(
-      updateUserData({
-        id: '',
-        name: '',
-        lastName: '',
-        profileImage: '',
-      }),
-    );
+    dispatch(resetUserData());
     navigate('/login');
   };
 
@@ -66,6 +60,7 @@ export const useUser = () => {
         name: data.name,
         lastName: 'Sr. Dr. Prf.',
         id: data.id,
+        email: `${data.name}@undominio.com`,
       };
       dispatch(updateUserData(userData));
       return userData;

@@ -1,8 +1,9 @@
 import Header from '../../components/common/header/Header';
 import type { RootState } from '../../store/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateUserDataField } from './profileSlice';
 import './styles.css';
+import { updateUserDataField } from '../../store/profile/profileSlice';
+import { useState } from 'react';
 
 export const Profile = () => {
   const profileState = useSelector((state: RootState) => state.profile);
@@ -26,11 +27,11 @@ export const Profile = () => {
           type='text'
           value={profileState.userData.name}
           placeholder='Ingresa tu nombre'
-          onChange={event =>
+          onChange={event => {
             dispatch(
               updateUserDataField({ field: 'name', value: event.target.value }),
-            )
-          }
+            );
+          }}
         />
       </div>
     </>

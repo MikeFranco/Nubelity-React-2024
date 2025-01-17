@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import profileReducer from '../pages/profile/profileSlice';
-import settingsReducer from '../pages/settings/settingsSlice';
+import profileReducer from './profile/profileSlice';
+import cartReducer from './cart/cartSlice';
 
 export const store = configureStore({
   reducer: {
+    //lista de reducers para actualizar el estado global
     profile: profileReducer,
-    settings: settingsReducer,
+    cart: cartReducer,
   },
 });
 

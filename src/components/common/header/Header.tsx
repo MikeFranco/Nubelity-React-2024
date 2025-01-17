@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom';
 //@ts-ignore TODO: fix this
 import CartPopUp from '../../header/CartPopUp';
 import { useUser } from '../../../hooks/useUser';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/store';
 
 interface IHeaderState {
   searchQuery: string;
@@ -18,6 +20,7 @@ interface IHeaderState {
 }
 
 const Header = () => {
+  const globalState = useSelector((state: RootState) => state);
   const { user } = useUser();
   const navigate = useNavigate();
   const [myState, setMyState] = useState<IHeaderState>({
@@ -83,6 +86,9 @@ const Header = () => {
           className='cart-icon icon'
           onClick={() => toggleCartPopUp()}
         />
+        <div className='cart-badge'>
+          <p className='cart-badge-count'>{globalState.cart.items.length}</p>
+        </div>
         {/* {myState.cartPopUp && <CartPopUp ref={cartRef} />} */}
         <p
           className='company-title'

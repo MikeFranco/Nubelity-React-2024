@@ -34,7 +34,7 @@ const Login = () => {
         />
         <button
           onClick={() => onLogin()}
-          className={`${
+          className={`main-button ${
             !email || !password ? 'button-disabled' : 'button-enabled'
           }`}
           disabled={!email || !password}

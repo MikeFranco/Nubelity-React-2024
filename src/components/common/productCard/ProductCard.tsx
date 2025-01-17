@@ -2,48 +2,61 @@ import React from 'react';
 
 import './styles.css';
 import { formatNumberToMoney } from '../../../utils/formatters';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addCartItem,
+  updateCartItemQuantity,
+} from '../../../store/cart/cartSlice';
+import { ICartItem } from '../../../store/cart/types';
+import { RootState } from '../../../store/store';
 
-interface IProductCard {
-  image: string;
-  productName: string;
-  description: string;
-  price: number;
-  priceWithDiscount?: number;
-  productRate?: number;
-  currency?: string;
-}
+const ProductCard = (product: ICartItem) => {
+  const cartState = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch();
 
-const ProductCard = ({
-  image,
-  productName,
-  description,
-  price,
-  priceWithDiscount,
-  productRate,
-  currency,
-}: IProductCard) => {
+  const addToCart = () => {
+    const existingIndex = cartState.items.findIndex(
+      item => item.id === product.id,
+    );
+    if (existingIndex !== -1) {
+      dispatch(updateCartItemQuantity(product));
+    } else dispatch(addCartItem(product));
+  };
+
   return (
     <div className='product-card-container'>
-      <p className='product-name'>{productName}</p>
+      <p className='product-name'>{product.productName}</p>
       <img
-        src={image}
+        src={product.image}
         alt='product'
         className='product-image'
       />
       <div className='price-container'>
-        <p className={`price ${priceWithDiscount ? 'price-dashed' : ''}`}>
-          {formatNumberToMoney(price, currency)}
+        <p
+          className={`price ${product.priceWithDiscount ? 'price-dashed' : ''}`}
+        >
+          {formatNumberToMoney(product.price, product.currency)}
         </p>
-        {priceWithDiscount && (
+        {product.priceWithDiscount ? (
           <>
             <p className='price price-discount'>
-              {formatNumberToMoney(priceWithDiscount, currency)}
+              {formatNumberToMoney(product.priceWithDiscount, product.currency)}
             </p>
-            <p className='price price-discount'>
+            {/* <p className='price price-discount'>
               Last {(Math.random() * 10).toFixed(0)} items
-            </p>
+            </p> */}
           </>
+        ) : (
+          <div style={{ height: '28px' }}></div>
         )}
+      </div>
+      <div className='product-footer'>
+        <button
+          className='main-button product-button'
+          onClick={addToCart}
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   );

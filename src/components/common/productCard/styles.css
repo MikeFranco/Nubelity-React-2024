@@ -19,6 +19,8 @@
 .price-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
 
 .price-container p {
@@ -26,7 +28,7 @@
 }
 
 .price {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
 }
 
@@ -38,4 +40,15 @@
 
 .price-discount {
   color: red;
+}
+
+.product-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product-button {
+  width: 100%;
+  margin-top: 5px;
 }
