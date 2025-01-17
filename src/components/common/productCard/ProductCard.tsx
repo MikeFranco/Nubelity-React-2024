@@ -1,26 +1,22 @@
 import React from 'react';
 
-import './styles.css';
 import { formatNumberToMoney } from '../../../utils/formatters';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  addCartItem,
-  updateCartItemQuantity,
-} from '../../../store/cart/cartSlice';
+import { addCartItem } from '../../../store/cart/cartSlice';
 import { ICartItem } from '../../../store/cart/types';
 import { RootState } from '../../../store/store';
+import QuantityButtons from '../../cart/quantityButtons/QuantityButtons';
+import './styles.css';
 
 const ProductCard = (product: ICartItem) => {
   const cartState = useSelector((state: RootState) => state.cart);
+  const itemFromCartState = cartState.items.filter(
+    cartItem => cartItem.id === product.id,
+  )[0];
   const dispatch = useDispatch();
 
   const addToCart = () => {
-    const existingIndex = cartState.items.findIndex(
-      item => item.id === product.id,
-    );
-    if (existingIndex !== -1) {
-      dispatch(updateCartItemQuantity(product));
-    } else dispatch(addCartItem(product));
+    dispatch(addCartItem(product));
   };
 
   return (
@@ -50,14 +46,18 @@ const ProductCard = (product: ICartItem) => {
           <div style={{ height: '28px' }}></div>
         )}
       </div>
-      <div className='product-footer'>
-        <button
-          className='main-button product-button'
-          onClick={addToCart}
-        >
-          Add to Cart
-        </button>
-      </div>
+      {!itemFromCartState ? (
+        <div className='product-footer'>
+          <button
+            className='main-button product-button'
+            onClick={addToCart}
+          >
+            Add to Cart
+          </button>
+        </div>
+      ) : (
+        <QuantityButtons item={product} />
+      )}
     </div>
   );
 };

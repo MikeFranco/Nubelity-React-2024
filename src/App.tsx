@@ -23,17 +23,17 @@ const App = () => {
             element={<Profile />}
           />
           {/*           <Route
-            path='address'
-            element={<Login />}
-          />
-          <Route
-            path='orders'
-            element={<Login />}
-          />
-          <Route
-            path='config'
-            element={<Login />}
-          /> */}
+        path='address'
+        element={<Login />}
+      />
+      <Route
+        path='orders'
+        element={<Login />}
+      />
+      <Route
+        path='config'
+        element={<Login />}
+      /> */}
         </Route>
 
         <Route

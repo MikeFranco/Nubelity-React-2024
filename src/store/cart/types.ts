@@ -12,4 +12,6 @@ export interface ICartItem {
 
 export interface CartInitialState {
   items: ICartItem[];
+  totalCartQuantity: number;
+  totalCartPrice: number;
 }

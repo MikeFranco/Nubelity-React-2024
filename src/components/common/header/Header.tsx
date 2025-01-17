@@ -5,7 +5,7 @@ import SettingsIcon from '../../../assets/icons/settings.svg';
 import SearchIcon from '../../../assets/icons/search.svg';
 import { COMPANY_NAME } from '../../../utils/constants';
 import './styles.css';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 //@ts-ignore TODO: fix this
 import CartPopUp from '../../header/CartPopUp';
@@ -20,7 +20,7 @@ interface IHeaderState {
 }
 
 const Header = () => {
-  const globalState = useSelector((state: RootState) => state);
+  const cartState = useSelector((state: RootState) => state.cart);
   const { user } = useUser();
   const navigate = useNavigate();
   const [myState, setMyState] = useState<IHeaderState>({
@@ -29,7 +29,19 @@ const Header = () => {
     cartPopUp: false,
   });
 
-  const cartRef = useRef(null);
+  const cartRef = useRef<HTMLDivElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (cartRef.current && badgeRef.current) {
+      const cartPosition = cartRef.current.getBoundingClientRect();
+      console.log('%c⧭', 'color: #00b300', cartPosition);
+      badgeRef.current.style.top = `${
+        cartPosition.top - cartPosition.top * 1.4
+      }px`;
+      badgeRef.current.style.right = `${-cartPosition.width + 25}px`;
+    }
+  }, [cartState.totalCartQuantity]);
 
   const onChangeQuery = (value: string) => {
     setMyState(prevState => ({ ...prevState, searchQuery: value }));
@@ -80,16 +92,23 @@ const Header = () => {
           className='profile-icon icon'
           onClick={() => navigate('/settings/profile')}
         />
-        <img
-          src={CartIcon}
-          alt='main logo'
-          className='cart-icon icon'
-          onClick={() => toggleCartPopUp()}
-        />
-        <div className='cart-badge'>
-          <p className='cart-badge-count'>{globalState.cart.items.length}</p>
+        <div
+          ref={cartRef}
+          className='cart-container'
+        >
+          <img
+            src={CartIcon}
+            alt='main logo'
+            className='cart-icon icon'
+            onClick={() => toggleCartPopUp()}
+          />
+          <div
+            className='cart-badge'
+            ref={badgeRef}
+          >
+            <p className='cart-badge-count'>{cartState.totalCartQuantity}</p>
+          </div>
         </div>
-        {/* {myState.cartPopUp && <CartPopUp ref={cartRef} />} */}
         <p
           className='company-title'
           onClick={() => navigate('/')}

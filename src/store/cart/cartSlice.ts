@@ -4,6 +4,8 @@ import { CartInitialState, ICartItem } from './types';
 
 const initialState: CartInitialState = {
   items: [],
+  totalCartQuantity: 0,
+  totalCartPrice: 0,
 };
 
 export const cartSlice = createSlice({
@@ -14,28 +16,53 @@ export const cartSlice = createSlice({
       state = initialState;
     },
     addCartItem: (state, action: PayloadAction<ICartItem>) => {
+      const { quantity, price, priceWithDiscount } = action.payload;
       state.items = [...state.items, action.payload];
-      console.log('%c⧭addCartItem', 'color: #917399', state.items);
+      state.totalCartQuantity += quantity;
+      state.totalCartPrice += priceWithDiscount ?? price;
     },
-    updateCartItemQuantity: (state, action: PayloadAction<ICartItem>) => {
-      const { id, quantity } = action.payload;
-      if (quantity === 0) {
+    increaseCartItemQuantity: (state, action: PayloadAction<ICartItem>) => {
+      const { id, price, priceWithDiscount } = action.payload;
+      const updateItemQuantity = state.items.map(item => {
+        if (item.id === id) {
+          item.quantity += 1;
+          state.totalCartQuantity += 1;
+          state.totalCartPrice += priceWithDiscount ?? price;
+        }
+        return item;
+      });
+      state.items = updateItemQuantity;
+    },
+    decreaseCartItemQuantity: (state, action: PayloadAction<ICartItem>) => {
+      const { id, price, priceWithDiscount } = action.payload;
+      const indexOfItemToBeUpdated = state.items.findIndex(
+        item => item.id === id,
+      );
+      const itemToBeUpdated = state.items[indexOfItemToBeUpdated];
+      state.totalCartQuantity -= 1;
+      state.totalCartPrice -= priceWithDiscount ?? price;
+
+      if (itemToBeUpdated && itemToBeUpdated.quantity - 1 === 0) {
         const cartWithoutItem = state.items.filter(item => item.id !== id);
         state.items = cartWithoutItem;
       } else {
         const updateItemQuantity = state.items.map(item => {
           if (item.id === id) {
-            item.quantity += quantity;
+            item.quantity -= 1;
           }
           return item;
         });
         state.items = updateItemQuantity;
-        console.log('%c⧭ updateItem', 'color: #d90000', state.items);
       }
     },
   },
 });
 
-export const { reset, addCartItem, updateCartItemQuantity } = cartSlice.actions;
+export const {
+  reset,
+  addCartItem,
+  increaseCartItemQuantity,
+  decreaseCartItemQuantity,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

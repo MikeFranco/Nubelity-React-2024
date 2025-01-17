@@ -3,7 +3,7 @@
   justify-content: space-evenly;
   gap: 10px;
   text-align: center;
-  overflow-x: scroll;
+  overflow-x: hidden;
 }
 
 .header-text {

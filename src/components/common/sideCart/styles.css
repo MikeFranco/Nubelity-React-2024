@@ -1,0 +1,35 @@
+.main-cart-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  text-align: center;
+  width: 100%;
+}
+
+.subtotal-header {
+  margin-bottom: 0;
+  color: var(--accent-color);
+}
+
+.subtotal-price {
+  color: var(--primary-color)
+}
+
+.go-to-checkout-button {
+  margin-bottom: 15px;
+  width: 90%;
+}
+
+.item-main-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+  justify-content: center;
+}
+
+.item-image {
+  object-fit: contain;
+  height: 50px;
+  width: 100px;
+}

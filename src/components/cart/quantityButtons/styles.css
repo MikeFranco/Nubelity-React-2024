@@ -1,0 +1,12 @@
+.item-quantity-container{
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 80%;
+}
+
+.item-quantity-text{
+  margin: 0;
+}
