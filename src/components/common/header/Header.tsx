@@ -2,16 +2,17 @@ import MainLogo from '../../../assets/logos/main-logo.png';
 import CartIcon from '../../../assets/icons/cart.svg';
 import ProfileIcon from '../../../assets/icons/profile.svg';
 import SettingsIcon from '../../../assets/icons/settings.svg';
-import SearchIcon from '../../../assets/icons/search.svg';
 import { COMPANY_NAME } from '../../../utils/constants';
-import './styles.css';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-//@ts-ignore TODO: fix this
-import CartPopUp from '../../header/CartPopUp';
 import { useUser } from '../../../hooks/useUser';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
+import { Button, MenuItem, Select, TextField } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import i18n from '../../../i18n/config';
+import { withNamespaces } from 'react-i18next';
+import './styles.css';
 
 interface IHeaderState {
   searchQuery: string;
@@ -19,10 +20,12 @@ interface IHeaderState {
   cartPopUp: boolean;
 }
 
-const Header = () => {
+const Header = (props: any) => {
+  const { t } = props;
   const cartState = useSelector((state: RootState) => state.cart);
   const { user } = useUser();
   const navigate = useNavigate();
+  const [selectedLanguage, setSelectedLanguage] = useState('es');
   const [myState, setMyState] = useState<IHeaderState>({
     searchQuery: '',
     loading: false,
@@ -53,6 +56,11 @@ const Header = () => {
     }));
   };
 
+  const changeLanguage = (language: string) => {
+    i18n.changeLanguage(language);
+    setSelectedLanguage(language);
+  };
+
   return (
     <div className='header-container'>
       <div className='image-user-container'>
@@ -62,22 +70,31 @@ const Header = () => {
           className='main-logo'
           onClick={() => navigate('/')}
         />
-        <p>Hola ¡{user.name}!</p>
+        <p>{t('welcomeUser', { name: user.name })}</p>
       </div>
       <div className='header-search-container'>
-        <input
+        <TextField
           value={myState.searchQuery}
           type='text'
           placeholder={`Buscar en ${COMPANY_NAME}`}
-          className='header-input'
+          id='header-input'
+          size='small'
           onChange={event => onChangeQuery(event.target.value)}
+          autoComplete='off'
         />
-        <img
+        <Button
+          variant='contained'
+          color='secondary'
+        >
+          <SearchIcon color='primary' />
+        </Button>
+        {/* <img
           src={SearchIcon}
           alt='main logo'
           className='search-icon icon'
-        />
+        /> */}
       </div>
+
       <div className='header-right-container'>
         <img
           src={SettingsIcon}
@@ -114,9 +131,20 @@ const Header = () => {
         >
           {COMPANY_NAME}
         </p>
+        <div>
+          <Select
+            value={selectedLanguage}
+            label='Language'
+            onChange={e => changeLanguage(e.target.value)}
+            variant='standard'
+          >
+            <MenuItem value='es'>🇲🇽</MenuItem>
+            <MenuItem value='en'>🏴󠁧󠁢󠁥󠁮󠁧󠁿</MenuItem>
+          </Select>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Header;
+export default withNamespaces()(Header);

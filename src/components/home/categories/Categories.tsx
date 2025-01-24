@@ -1,7 +1,9 @@
 import React from 'react';
+import { withNamespaces } from 'react-i18next';
 import './styles.css';
 
-const Categories = () => {
+const Categories = (props: any) => {
+  const { t } = props;
   const categories = [
     {
       position: 1,
@@ -26,7 +28,7 @@ const Categories = () => {
   ];
   return (
     <div>
-      <h3 className='header-text'>Categorías</h3>
+      <h3 className='header-text'>{t('homepage.categories')}</h3>
       <div className='main-categories-container'>
         {categories.map(category => (
           <div key={category.name}>
@@ -45,4 +47,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default withNamespaces()(Categories);

@@ -38,19 +38,20 @@
   gap: 0px;
 }
 
-.header-input{
+#header-input{
   background-color: #FFFFFF;
   color: black;
   border: 0px;
   padding: 10px;
   width: 20vw;
+  height: 20px;
 }
 
-.icon {
+#icon {
   cursor: pointer;
 }
 
-.search-icon{
+#search-icon{
   width: 20px;
   height: 20px;
   background-color: var(--secondary-color);

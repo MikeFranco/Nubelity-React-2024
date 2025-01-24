@@ -1,0 +1,12 @@
+{
+  "welcomeUser": "Hola {{name}}",
+  "description": {
+    "part1": "Un ejemplo simple",
+    "part2": "😉"
+  },
+  "userMessagesUnread_one": "Tienes {{count}} mensajes sin leer.",
+  "userMessagesUnread_other": "Tienes {{count}} mensajes sin leer.",
+  "homepage": {
+    "categories": "Categorías"
+  }
+}
