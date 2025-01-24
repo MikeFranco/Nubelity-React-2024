@@ -22,7 +22,7 @@ code {
     monospace;
 }
 
-.main-button{
+/* .main-button{
   border: 0px;
   padding: 10px;
   width: 50%;
@@ -31,8 +31,25 @@ code {
   color: var(--white-color);
   font-weight: bold;
   font-size: 18px;
-}
+} */
 
 button {
   cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--white-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
 }

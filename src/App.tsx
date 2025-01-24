@@ -4,6 +4,7 @@ import Profile from './pages/profile/Profile';
 import Login from './pages/login/Login';
 import Settings from './pages/settings/Settings';
 import Testing from './pages/testing/Testing';
+import MainLayout from './layouts/mainLayout/MainLayout';
 
 const App = () => {
   return (
@@ -16,11 +17,19 @@ const App = () => {
         <Route path='settings'>
           <Route
             index /* Panel general de configura */
-            element={<Settings />}
+            element={
+              <MainLayout>
+                <Settings />
+              </MainLayout>
+            }
           />
           <Route
             path='profile'
-            element={<Profile />}
+            element={
+              <MainLayout>
+                <Profile />
+              </MainLayout>
+            }
           />
           {/*           <Route
         path='address'
@@ -42,7 +51,11 @@ const App = () => {
         />
         <Route
           path='/'
-          element={<Home />}
+          element={
+            <MainLayout>
+              <Home />
+            </MainLayout>
+          }
         />
         <Route
           path='/testing'

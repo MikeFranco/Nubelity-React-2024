@@ -7,6 +7,7 @@ import { ICartItem } from '../../../store/cart/types';
 import { RootState } from '../../../store/store';
 import QuantityButtons from '../../cart/quantityButtons/QuantityButtons';
 import './styles.css';
+import { MainButton } from '../button/StyledButton';
 
 const ProductCard = (product: ICartItem) => {
   const cartState = useSelector((state: RootState) => state.cart);
@@ -47,13 +48,24 @@ const ProductCard = (product: ICartItem) => {
         )}
       </div>
       {!itemFromCartState ? (
-        <div className='product-footer'>
-          <button
-            className='main-button product-button'
+        <div className='
+        product-footer
+        px-3
+        py-6
+        my-8
+        sm:text-lg
+        lg:text-xl
+        bg-sky-500
+        hover:bg-sky-700 '>
+          <MainButton
             onClick={addToCart}
+            $fontSize='15px'
+            $margin='5px 0px 0px 0px'
+            $padding='10px 0px'
+            $width='100%'
           >
-            Add to Cart
-          </button>
+            Añadir al carrito
+          </MainButton>
         </div>
       ) : (
         <QuantityButtons item={product} />

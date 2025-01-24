@@ -40,26 +40,20 @@ export const Settings = () => {
     },
   ];
 
-  useEffect(() => {
-    console.log('%c⧭ profileState', 'color: #1d734e', profileState);
-  }, []);
   return (
-    <>
-      <Header />
-      <div className='main-container'>
-        <h1>Hola {profileState.userData.name}</h1>
-        <div className='settings-cards-container'>
-          {settingsCards.map((setting, index) => (
-            <Card
-              key={index}
-              title={setting.title}
-              description={setting.description}
-              onClick={setting.onClick}
-            />
-          ))}
-        </div>
+    <div className='main-container'>
+      <h1>Hola {profileState.userData.name}</h1>
+      <div className='settings-cards-container'>
+        {settingsCards.map((setting, index) => (
+          <Card
+            key={index}
+            title={setting.title}
+            description={setting.description}
+            onClick={setting.onClick}
+          />
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

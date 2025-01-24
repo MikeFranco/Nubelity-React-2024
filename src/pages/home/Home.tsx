@@ -8,25 +8,10 @@ import './styles.css';
 
 export const Home = () => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-      }}
-    >
-      <div
-        style={{
-          width: '94vw',
-        }}
-      >
-        <Header />
-        <div className='main-container'>
-          <Banner />
-          <Categories />
-          <FeaturedProducts />
-        </div>
-      </div>
-      <SideCart />
+    <div className='main-container'>
+      <Banner />
+      <Categories />
+      <FeaturedProducts />
     </div>
   );
 };

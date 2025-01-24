@@ -35,7 +35,6 @@ const Header = () => {
   useEffect(() => {
     if (cartRef.current && badgeRef.current) {
       const cartPosition = cartRef.current.getBoundingClientRect();
-      console.log('%c⧭', 'color: #00b300', cartPosition);
       badgeRef.current.style.top = `${
         cartPosition.top - cartPosition.top * 1.4
       }px`;

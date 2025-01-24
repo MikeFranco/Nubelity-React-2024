@@ -1,0 +1,17 @@
+.categories-main-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding-left: 20px;
+  background-color: var(--secondary-color);
+}
+
+.category {
+  cursor: pointer;
+  background-color: var(--light-primary-color);
+  padding: 0px 10px;
+}
+
+.category:hover{
+  background-color: var(--primary-color);
+}

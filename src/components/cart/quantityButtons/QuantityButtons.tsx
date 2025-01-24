@@ -6,6 +6,9 @@ import {
 } from '../../../store/cart/cartSlice';
 import { IQuantityButtonsProps } from './types';
 import { RootState } from '../../../store/store';
+import TrashIcon from '../../../assets/icons/trash.svg';
+import MinusIcon from '../../../assets/icons/minus.svg';
+import AddIcon from '../../../assets/icons/add.svg';
 import './styles.css';
 
 const QuantityButtons = ({ item }: IQuantityButtonsProps) => {
@@ -16,12 +19,36 @@ const QuantityButtons = ({ item }: IQuantityButtonsProps) => {
   const dispatch = useDispatch();
   return (
     <div className='item-quantity-container'>
-      <button onClick={() => dispatch(decreaseCartItemQuantity(item))}>
-        -
+      <button
+        onClick={() => dispatch(decreaseCartItemQuantity(item))}
+        style={{
+          display: 'flex',
+          justifyItems: 'center',
+        }}
+      >
+        <img
+          src={itemFromCartState?.quantity === 1 ? TrashIcon : MinusIcon}
+          alt='remove icon'
+          width={15}
+          height={15}
+          style={{ padding: 0 }}
+        />
       </button>
       <p className='item-quantity-text'>{itemFromCartState?.quantity ?? 0}</p>
-      <button onClick={() => dispatch(increaseCartItemQuantity(item))}>
-        +
+      <button
+        onClick={() => dispatch(increaseCartItemQuantity(item))}
+        style={{
+          display: 'flex',
+          justifyItems: 'center',
+        }}
+      >
+        <img
+          src={AddIcon}
+          alt='add icon'
+          width={15}
+          height={15}
+          style={{ padding: 0 }}
+        />
       </button>
     </div>
   );
