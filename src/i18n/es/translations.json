@@ -1,5 +1,8 @@
 {
   "welcomeUser": "Hola {{name}}",
+  "header": {
+    "searchBar": "Buscar en {{companyName}}"
+  },
   "description": {
     "part1": "Un ejemplo simple",
     "part2": "😉"

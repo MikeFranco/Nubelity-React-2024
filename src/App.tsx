@@ -1,23 +1,42 @@
-import { BrowserRouter, Routes, Route } from 'react-router';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
-import Login from './pages/login/Login';
 import Settings from './pages/settings/Settings';
-import Testing from './pages/testing/Testing';
 import MainLayout from './layouts/mainLayout/MainLayout';
+import React, { lazy, Suspense } from 'react';
+import { CircularProgress } from '@mui/material';
 
-
+const Login = lazy(() => import('./pages/login/Login'));
+const Testing = lazy(() => import('./pages/testing/Testing'));
 const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          path='/login'
-          element={<Login />}
-        />
-        <Route path='settings'>
+      <Suspense fallback={<CircularProgress />}>
+        <Routes>
           <Route
-            index /* Panel general de configura */
+            path='/login'
+            element={<Login />}
+          />
+          <Route path='settings'>
+            <Route
+              index
+              element={
+                <MainLayout>
+                  <Settings />
+                </MainLayout>
+              }
+            />
+            <Route
+              path='profile'
+              element={
+                <MainLayout>
+                  <Profile />
+                </MainLayout>
+              }
+            />
+          </Route>
+          {/* <Route
+            path='settings/'
             element={
               <MainLayout>
                 <Settings />
@@ -25,13 +44,13 @@ const App = () => {
             }
           />
           <Route
-            path='profile'
+            path='settings/profile'
             element={
               <MainLayout>
                 <Profile />
               </MainLayout>
             }
-          />
+          /> */}
           {/*           <Route
         path='address'
         element={<Login />}
@@ -44,25 +63,25 @@ const App = () => {
         path='config'
         element={<Login />}
       /> */}
-        </Route>
 
-        <Route
-          path='/register'
-          element={<Login />}
-        />
-        <Route
-          path='/'
-          element={
-            <MainLayout>
-              <Home />
-            </MainLayout>
-          }
-        />
-        <Route
-          path='/testing'
-          element={<Testing />}
-        />
-      </Routes>
+          {/* <Route
+            path='/register'
+            element={<Login />}
+          /> */}
+          <Route
+            path='/'
+            element={
+              <MainLayout>
+                <Home />
+              </MainLayout>
+            }
+          />
+          <Route
+            path='/testing'
+            element={<Testing />}
+          />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 };

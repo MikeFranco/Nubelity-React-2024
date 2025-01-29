@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../../hooks/useUser';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
-import { Button, MenuItem, Select, TextField } from '@mui/material';
+import { Button, MenuItem, Select, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import i18n from '../../../i18n/config';
 import { withNamespaces } from 'react-i18next';
@@ -70,13 +70,13 @@ const Header = (props: any) => {
           className='main-logo'
           onClick={() => navigate('/')}
         />
-        <p>{t('welcomeUser', { name: user.name })}</p>
+        <Typography>{t('welcomeUser', { name: user.name })}</Typography>
       </div>
       <div className='header-search-container'>
         <TextField
           value={myState.searchQuery}
           type='text'
-          placeholder={`Buscar en ${COMPANY_NAME}`}
+          placeholder={t('header.searchBar', { companyName: COMPANY_NAME })}
           id='header-input'
           size='small'
           onChange={event => onChangeQuery(event.target.value)}
