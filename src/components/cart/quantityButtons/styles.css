@@ -10,3 +10,18 @@
 .item-quantity-text{
   margin: 0;
 }
+
+.button {
+  border: 0px;
+  padding-block: 5px;
+  display: flex;
+  justify-items: center;
+}
+
+.button-minus {
+  background-color: red;
+}
+
+.button-add{
+  background-color: var(--accent-color);
+}

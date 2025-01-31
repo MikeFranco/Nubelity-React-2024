@@ -48,7 +48,8 @@ const ProductCard = (product: ICartItem) => {
         )}
       </div>
       {!itemFromCartState ? (
-        <div className='
+        <div
+          className='
         product-footer
         px-3
         py-6
@@ -56,7 +57,8 @@ const ProductCard = (product: ICartItem) => {
         sm:text-lg
         lg:text-xl
         bg-sky-500
-        hover:bg-sky-700 '>
+        hover:bg-sky-700 '
+        >
           <MainButton
             onClick={addToCart}
             $fontSize='15px'
@@ -68,7 +70,10 @@ const ProductCard = (product: ICartItem) => {
           </MainButton>
         </div>
       ) : (
-        <QuantityButtons item={product} />
+        <QuantityButtons
+          item={product}
+          className='quantity-buttons'
+        />
       )}
     </div>
   );
